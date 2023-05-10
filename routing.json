@@ -1,0 +1,4 @@
+{
+  "": "/:resource/:id",
+  "/polls/:id/questions": "/questions"
+}

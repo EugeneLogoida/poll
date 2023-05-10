@@ -1,0 +1,18 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-2">
+      <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action" aria-current="true" [routerLink]="[ 'polls' ]" routerLinkActive="active">
+          Cтворити опитування
+        </a>
+        <a href="#" class="list-group-item list-group-item-action" [routerLink]="[ 'stats' ]" routerLinkActive="active">Статистика</a>
+        <a href="#" class="list-group-item list-group-item-action" [routerLink]="[ 'change-polls' ]" routerLinkActive="active">Редагування опитування</a>
+      </div>
+    </div>
+    <div class="col-10">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+</div>

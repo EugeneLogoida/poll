@@ -1,0 +1,116 @@
+<form [formGroup]="pollInfoForm">
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Тема опитування</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Тема опитування" formControlName="pollName">
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Опис</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="pollDescription"></textarea>
+  </div>
+</form>
+
+<div class="mb-3">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Дата закінчення опитування</mat-label>
+    <input matInput [matDatepicker]="picker" (dateChange)="dateChanged($event)">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker">
+      <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+    </mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+
+</div>
+
+<div class="d-flex mb-3">
+
+  <div class="form-check me-2">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked (change)="changePublic(true)">
+    <label class="form-check-label" for="flexRadioDefault1">
+      Публічне опитування
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" (change)="changePublic(false)">
+    <label class="form-check-label" for="flexRadioDefault2">
+      Опитування по запрошенню
+    </label>
+  </div>
+</div>
+
+<ng-container *ngIf="!isPollPublic" >
+  <form class="d-flex">
+
+    <div class="mb-3 col-6">
+      <label for="exampleInputEmail1" class="form-label">Email користувачів</label>
+      <input [(ngModel)]="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="something">
+      <div id="emailHelp" class="form-text">Додайте користувачів</div>
+      <button (click)="addEmail()" type="button" class="btn btn-danger">Додати</button>
+    </div>
+    <div class="col-1"></div>
+    <div class="col-5">
+
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Пошта</th>
+          <th scope="col">Видалити користувача</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let cEmail of listOfEmails">
+          <td> {{ cEmail }} </td>
+          <td>
+            <button (click)="deleteEmail(cEmail)" type="button" class="btn btn-danger">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+</ng-container>
+
+
+<button class="btn btn-primary mb-4" (click)="createPoll()">Створити опитування</button>
+<div>
+  <h3 class="mb-3">Додавання питань до опитування</h3>
+  <form [formGroup]="questionForm">
+
+
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label" >Питання</label>
+        <input type="text" class="form-control" id="" placeholder="Питання" formControlName="questionName">
+    </div>
+    <div>
+      <div class="mb-1">
+           <label class="form-label">Відповідь </label>
+           <input type="text" formControlName="q1" class="form-control" placeholder="Відповідь " >
+      </div>
+      <div class="mb-1">
+        <label class="form-label">Відповідь </label>
+        <input type="text" formControlName="q2" class="form-control" placeholder="Відповідь " >
+      </div>
+      <div class="mb-1">
+        <label class="form-label">Відповідь </label>
+        <input type="text" formControlName="q3" class="form-control" placeholder="Відповідь " >
+      </div>
+      <div class="mb-1">
+        <label class="form-label">Відповідь </label>
+        <input type="text" formControlName="q4" class="form-control" placeholder="Відповідь " >
+      </div>
+    </div>
+
+
+    <div class="d-flex">
+
+
+    <button class="btn btn-primary mb-5" (click)="add()">Додати питання</button>
+    </div>
+
+    <button  [routerLink]="[ '/polls' ]" class="btn btn-primary" style="width: 100%;" (click)="res()">Зберегти опитування</button>
+  </form>
+
+</div>
+
+

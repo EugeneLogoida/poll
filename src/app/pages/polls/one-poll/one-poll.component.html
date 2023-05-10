@@ -1,0 +1,65 @@
+<div class="m-auto">
+  <ng-container>
+    <div class="card" >
+      <div class="card-body">
+        <h5 class="card-title">Назва: {{ poll?.pollName }}</h5>
+        <p class="card-text">Опис: {{ poll?.pollDescription }}</p>
+        <div  class="form-text">
+          Обирайте відповідь на питання та зберігайте відповіді.  
+        </div>
+        <div  class="form-text mb-3">
+          Після того, як будуть дані відповіді на всі питання  - зберігайте результати опитування.  
+        </div>
+        <div *ngFor="let x of allQuestions">
+          <hr>
+          <h5 class="mb-3">{{ x?.questionName }}</h5>
+        <form>
+
+
+          <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" (click)="answerID=0">
+              <label class="form-check-label">
+                {{ x?.answers[0].answerName1 }}
+              </label>
+            </div>
+            <div class="form-check">
+
+              <input class="form-check-input" type="radio" name="flexRadioDefault" (click)="answerID=1">
+              <label class="form-check-label" >
+                {{ x?.answers[1].answerName2 }}
+              </label>
+            </div>
+            <div class="form-check">
+
+              <input class="form-check-input" type="radio" name="flexRadioDefault" (click)="answerID=2">
+              <label class="form-check-label">
+                {{ x?.answers[2].answerName3 }}
+              </label>
+            </div>
+            <div class="form-check">
+
+              <input class="form-check-input" type="radio" name="flexRadioDefault" (click)="answerID=3">
+              <label class="form-check-label">
+                {{ x?.answers[3].answerName4 }}
+              </label>
+            </div>
+
+            <button type="button" class="btn btn-danger" (click)="saveAnswer(x)">Зберети відповідь</button>
+          </div>
+
+
+
+
+        </form>
+        </div>
+
+
+
+      </div>
+      <a (click)="savePoll(poll)" class="btn btn-primary">Зберети відповіді</a>
+    </div>
+  </ng-container>
+
+</div>

@@ -1,0 +1,38 @@
+<div #target></div>
+<div class="col-12">
+  <div *ngIf="editStatus" class="mb-3">
+    <form [formGroup]="pollInfoForm">
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Тема опитування</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Тема опитування" formControlName="pollName">
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Опис</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="pollDescription"></textarea>
+      </div>
+      <button class="btn btn-primary" (click)="save()">Зберегти зміни</button>
+    </form>
+
+  </div>
+  <div class="m-auto">
+    <ng-container *ngFor="let poll of pollsList">
+      <div class="card mb-3">
+        <div class="card-body">
+
+          <h5 class="card-title">{{ poll.pollName }}</h5>
+          <p class="card-text">{{ poll.pollDescription }}</p>
+          <div class="d-flex ">
+            <button (click)="editPoll(poll)" (click)="scrollToElement()" type="button" class="btn btn-info me-2">Змінити назву та опис</button>
+            <a [routerLink]="[ '/admin/change-polls/', poll.id ]" class="btn btn-info me-2">Змінити питання</a>
+            <button (click)="deletePoll(poll)" type="button" class="btn btn-danger">Видалити опитування</button>
+
+          </div>
+        </div>
+
+
+
+      </div>
+    </ng-container>
+  </div>
+
+</div>

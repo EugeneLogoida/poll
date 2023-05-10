@@ -1,0 +1,87 @@
+<h3>Найпопулярніше опитування</h3>
+<p>Опитування за назвою {{ this.maxEnteredByPollName }} з кількістю {{ this.maxEnteredByTimes }}</p>
+<p>Його оглянули наступні користувачі <b>{{ usersEnteredByPolls.join(', ') }}</b> </p>
+<p>Топ-3 опитування по популярності - це {{ this.topEnteredByPolls.join(', ') }}</p>
+
+<h3>Найпопулярніша відповідь</h3>
+<p>Найпопулярнішою відповіддю була {{ this.questionName }} з кількістю {{ this.maxTimesChosen }} 
+    з питання {{ this.mostVotedAnswer }}
+</p>
+<div class="m-auto">
+    <h3>Результати опитувань</h3>
+    <div class="me-3 mb-3">
+        <label class="mb-1">
+          Шукати за назвою:
+        </label>
+        <input type="text" class="form-control"  name="" id="" [(ngModel)]="searchField" placeholder="Пошук">
+      </div>
+    <ng-container *ngFor="let poll of pollsList | filter: searchField" >
+      <div class="card  mb-4">
+        <div class="card-body">
+          <p>
+            👁 {{ poll.enteredByTimes }}
+          </p>
+          <h5 class="card-title">{{ poll.pollName }}</h5>
+          <p class="card-text">{{ poll.pollDescription }}</p>
+          <!-- <a class="btn btn-primary" (click)="showStats(poll)">Дізнатись інформацію</a> -->
+
+          <div *ngFor="let x of poll.questions">
+            <hr>
+            <h5>{{ x?.questionName }}</h5>
+           
+            <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
+
+                
+                <div class="form-check d-flex align-items-center">
+                    <label class="form-check-label" style="margin-right: 10px;" >
+                        {{ x?.answers[0].answerName1 }}
+                    </label>
+                    
+                    <label class="form-check-label" style="margin-right: 10px;" >
+                        Було обрано {{ x?.answers[0].timesChosen }} <span>з</span>
+                        {{ x?.answers[0].timesChosen + x?.answers[1].timesChosen + x?.answers[2].timesChosen+x?.answers[3].timesChosen }}
+                    </label>
+                    
+                </div>
+                
+                
+                <div class="form-check d-flex align-items-center">
+                    <label class="form-check-label" style="margin-right: 10px;" >
+                        {{ x?.answers[1].answerName2 }}
+                    </label>
+                    
+                    <label class="form-check-label" style="margin-right: 10px;" >
+                        Було обрано {{ x?.answers[1].timesChosen }} <span>з</span>
+                        {{ x?.answers[0].timesChosen + x?.answers[1].timesChosen + x?.answers[2].timesChosen+x?.answers[3].timesChosen }}
+                    </label>
+                </div>
+                <div class="form-check d-flex align-items-center">
+                    <label class="form-check-label" style="margin-right: 10px;" >
+                        {{ x?.answers[2].answerName3 }}
+                    </label>
+                    
+                    <label class="form-check-label" style="margin-right: 10px;" >
+                        Було обрано {{ x?.answers[2].timesChosen }} <span>з</span>
+                        {{ x?.answers[0].timesChosen + x?.answers[1].timesChosen + x?.answers[2].timesChosen+x?.answers[3].timesChosen }}
+                    </label>
+                </div>
+                <div class="form-check d-flex align-items-center">
+                    <label class="form-check-label" style="margin-right: 10px;">
+                        {{ x?.answers[3].answerName4 }}
+                    </label>
+                    
+                    <label class="form-check-label" style="margin-right: 10px;" >
+                        Було обрано {{ x?.answers[3].timesChosen }} <span>з</span>
+                        {{ x?.answers[0].timesChosen + x?.answers[1].timesChosen + x?.answers[2].timesChosen+x?.answers[3].timesChosen }}
+                    </label>
+                </div>
+                
+          </div>
+        </div>
+      </div>
+      </div>
+    </ng-container>
+  
+</div>
+
+

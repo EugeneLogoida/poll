@@ -1,0 +1,39 @@
+<h2 class="mb-3 text-center">Кабінет</h2>
+<div class="m-auto">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Вітаємо в кабінеті, {{ cUser.firstName }} {{ cUser.lastName }}</h4>
+      <p class="card-text "> В кабінеті у вас є можливість</p>
+      <ul>
+        <li>
+          Змінити ім'я та прізвище на своєму аккаунті
+        </li>
+        <li>
+          Перейти на вкладку опитувань
+        </li>
+        <li>
+          Видалити аккаунт
+        </li>
+      </ul> 
+      <p class="card-text "> Оберіть наступну дію:</p>
+      <a class="btn btn-primary" style="margin-left: 0;" (click)="changeProfile()">Змінити дані профілю</a>
+      <a [routerLink]="[ '/polls' ]"  class="btn btn-primary">Перейти до опитувань</a>
+      <a class="btn btn-danger" (click)="deleteProfile()">Видалити аккаунт</a>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="changeProfileStatus">
+  <form [formGroup]="editProfileForm">
+    <div class="input-group mt-3 ">
+      <input type="text" class="form-control" placeholder="Ім'я" aria-label="Username" formControlName="firstName">
+      <input type="text" class="form-control" placeholder="Прізвище" aria-label="Server" formControlName="lastName">
+      
+    </div>
+    <div  class="form-text mb-3">
+      Зміна та збереження даних призведе до виходу з аккаунту.
+    </div>
+    
+    <a class="btn btn-primary" (click)="saveChanges()">Зберегти зміни</a>
+  </form>
+</ng-container>

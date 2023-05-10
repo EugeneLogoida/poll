@@ -1,0 +1,122 @@
+<h2 class="mb-2 text-center">Опитування</h2>
+<div class="d-flex mb-3">
+  <div class="me-3">
+    <label class="mb-1">
+      Шукати за назвою:
+    </label>
+    <input type="text" class="form-control"  name="" id="" [(ngModel)]="searchField" placeholder="Пошук">
+  </div>
+  <div>
+    <label class="mb-1">
+      Сортувати за:
+    </label>
+    <select class="form-select" aria-label="Default select example"  [(ngModel)]="sortByParam">
+      <option value="" selected>Доступні опитування</option>
+      <option value="expiredAt">Дата закінчення</option>
+      <option value="pollName">Назва</option>
+      <option value="enteredByTimes" >Кількістю пройдених</option>
+      <option value="alreadyAnswered">Пройдені мною</option>
+      <option value="onlyPublic">Лише відкриті</option>
+      <option value="onlyPrivate">Лише закриті</option>
+    </select>
+  </div>
+</div>
+
+<div class="m-auto">
+  
+  
+  <ng-container *ngFor="let poll of pollsList | filter: searchField | sort:[sortByParam]">
+
+    <div class="card" 
+         *ngIf="currentUser.role =='ADMIN'">
+      <div class="card-body">
+        
+        
+        <div class="date-info">
+          <p>
+            Опитування закінчується {{poll.expiredAt | date:'dd.MM.YYYY'}} 
+          </p>
+          <p>👁 {{ poll.enteredByTimes }}</p>
+        </div>  
+        <h4 class="card-title">Назва: {{ poll.pollName }}</h4>
+        <p class="card-text">Опис: {{ poll.pollDescription }}</p>
+      </div>
+    </div>
+    <div *ngIf="currentUser.role =='USER'">
+      <div class="card" 
+         
+         *ngIf="
+         (poll.public || poll.availableTo.includes(currentUser.email)) && poll.expiredAt > this.date  && !poll.enteredBy.includes(currentUser.email) &&
+         (sortByParam == '' || sortByParam == 'expiredAt' ||sortByParam == 'pollName' || sortByParam == 'enteredByTimes')
+         ">
+      <div class="card-body">
+        <h5 *ngIf="poll.enteredBy.includes(currentUser.email)">Ви вже пройшли це опитування</h5>
+        <div class="date-info">
+          <p>
+            Опитування закінчується {{poll.expiredAt | date:'dd.MM.YYYY'}} 
+          </p>
+          <p>👁 {{ poll.enteredByTimes }}</p>
+        </div>
+        <h4 class="card-title">Назва: {{ poll.pollName }}</h4>
+        <p class="card-text">Опис: {{ poll.pollDescription }}</p>
+        
+        <a *ngIf="!poll.enteredBy.includes(currentUser.email)"  class="btn btn-primary" [routerLink]="[ '/polls', poll.id ]" (click)="enteredByCheck(poll)">Перейти до опитування</a>
+      </div>
+    </div>
+
+
+
+    <div class="card" 
+         *ngIf="(sortByParam == 'alreadyAnswered') && poll.enteredBy.includes(currentUser.email) ">
+      <div class="card-body">
+        <p>
+          <h5>Ви вже пройшли це опитування</h5>
+          <h4 class="card-title">Назва: {{ poll.pollName }}</h4>
+          <p class="card-text">Опис: {{ poll.pollDescription }}</p>
+      </div>
+    </div>
+
+    <div class="card" 
+         
+         *ngIf="
+         (poll.public) && poll.expiredAt > this.date  && 
+         (sortByParam == 'onlyPublic')
+         ">
+      <div class="card-body">
+        <h5 *ngIf="poll.enteredBy.includes(currentUser.email)">Ви вже пройшли це опитування</h5>
+        <div class="date-info">
+          <p>
+            Опитування закінчується {{poll.expiredAt | date:'dd.MM.YYYY'}} 
+          </p>
+          <p>👁 {{ poll.enteredByTimes }}</p>
+        </div>
+        <h4 class="card-title">Назва: {{ poll.pollName }}</h4>
+        <p class="card-text">Опис: {{ poll.pollDescription }}</p>
+        <a *ngIf="!poll.enteredBy.includes(currentUser.email)" href="#" class="btn btn-primary" [routerLink]="[ '/polls', poll.id ]" (click)="enteredByCheck(poll)">Перейти до опитування</a>
+      </div>
+    </div>
+
+    <div class="card" 
+         
+         *ngIf="
+         (poll.availableTo.includes(currentUser.email)) && poll.expiredAt > this.date  && 
+         (sortByParam == 'onlyPrivate')
+         ">
+      <div class="card-body">
+        <h5 *ngIf="poll.enteredBy.includes(currentUser.email)">Ви вже пройшли це опитування</h5>
+        <div class="date-info">
+          <p>
+            Опитування закінчується {{poll.expiredAt | date:'dd.MM.YYYY'}} 
+          </p>
+          <p>👁 {{ poll.enteredByTimes }}</p>
+        </div>
+        <h4 class="card-title">Назва: {{ poll.pollName }}</h4>
+        <p class="card-text">Опис: {{ poll.pollDescription }}</p>
+        <a *ngIf="!poll.enteredBy.includes(currentUser.email)" href="#" class="btn btn-primary" [routerLink]="[ '/polls', poll.id ]" (click)="enteredByCheck(poll)">Перейти до опитування</a>
+      </div>
+    </div>
+    </div>
+    
+  </ng-container>
+
+</div>

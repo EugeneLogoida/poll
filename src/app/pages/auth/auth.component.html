@@ -1,0 +1,61 @@
+
+<ng-container *ngIf="!isRegister">
+  <h2 class="mb-5 text-center">Авторизація</h2>
+  <form [formGroup]="registerForm">
+    <div class="input-group mb-3">
+      <div style="width: 50%;">
+
+        <label for="" class="form-label">Ім'я </label>
+        <input type="text" class="form-control" placeholder="Введіть ім'я" aria-label="Username" formControlName="fName">
+      </div>
+      <div style="width: 50%;">
+        
+        <label for="" class="form-label">Прізвище </label>
+        <input type="text" class="form-control" placeholder="Введіть прізвище" aria-label="Server" formControlName="lName">
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Email </label>
+      <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" formControlName="email">
+    </div>
+    <div class="mb-3">
+
+      <label for="inputPassword5" class="form-label">Пароль</label>
+      <input type="password" id="inputPassword5" class="form-control" aria-labelledby="passwordHelpBlock" formControlName="password">
+      <div id="passwordHelpBlock" class="form-text">
+        Введіть пароль довжиною більше 8 і менше 20 символів.
+      </div>
+    </div>
+    <div class="btn-position">
+      
+      <button type="button" class="btn btn-outline-primary mb-2" (click)="registerUser()">Зареєструватись</button>
+      <a class="txt2" (click)="changeIsLogin()">Вже є аккаунт? Увійти</a>
+    </div>
+  </form>
+</ng-container>
+
+
+
+<ng-container *ngIf="isRegister">
+  <h2 class="mb-5 text-center">Вхід</h2>
+  <form [formGroup]="loginForm">
+
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Email </label>
+      <input type="email" class="form-control"  placeholder="name@example.com" formControlName="email">
+    </div>
+    <div class="mb-3">
+
+      <label for="inputPassword5" class="form-label">Пароль</label>
+      <input type="password"  class="form-control" aria-labelledby="passwordHelpBlock" formControlName="password">
+    </div>
+    <div  class="form-text">
+      Введіть ваш пароль.
+    </div>
+    <div class="btn-position">
+
+      <button type="button" class="btn btn-outline-primary mb-3" (click)="loginUser()">Увійти</button>
+      <a class="txt2" (click)="changeIsLogin()">Немає аккаунта? Зарєструватись</a>
+    </div>
+  </form>
+</ng-container>

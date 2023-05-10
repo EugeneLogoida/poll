@@ -1,0 +1,57 @@
+<div class="m-auto">
+  <ng-container>
+    <ng-container *ngIf="editStatus == true">
+      <form [formGroup]="questionForm">
+
+
+        <div class="mb-3">
+          <label  class="form-label" >Питання</label>
+          <input type="text" class="form-control" id="" placeholder="Питання" formControlName="questionName">
+        </div>
+        <div>
+          <div class="mb-1">
+            <label class="form-label">Відповідь </label>
+            <input type="text" formControlName="q1" class="form-control" placeholder="Відповідь " >
+          </div>
+          <div class="mb-1">
+            <label class="form-label">Відповідь </label>
+            <input type="text" formControlName="q2" class="form-control" placeholder="Відповідь " >
+          </div>
+          <div class="mb-1">
+            <label class="form-label">Відповідь </label>
+            <input type="text" formControlName="q3" class="form-control" placeholder="Відповідь " >
+          </div>
+          <div class="mb-1">
+            <label class="form-label">Відповідь </label>
+            <input type="text" formControlName="q4" class="form-control" placeholder="Відповідь " >
+          </div>
+        </div>
+
+        <button class="btn btn-primary mb-3" (click)="save()">Зберегти питання</button>
+      </form>
+    </ng-container>
+    <div class="card mb-3" >
+      <div class="card-body">
+        <h5 class="card-title">{{ poll?.pollName }}</h5>
+        <p class="card-text">{{ poll?.pollDescription }}</p>
+        <hr>
+        <div *ngFor="let x of allQuestions">
+          <hr>
+          <h5>{{ x?.questionName }}</h5>
+          <p>{{ x?.answers[0].answerName1 }}</p>
+          <p>{{ x?.answers[1].answerName2 }}</p>
+          <p>{{ x?.answers[2].answerName3 }}</p>
+          <p>{{ x?.answers[3].answerName4 }}</p>
+          <button (click)="editQuestion(x)" type="button" class="btn btn-primary me-2">Змінити</button>
+          <button (click)="deleteQuestion(x)" type="button" class="btn btn-danger ">Видалити</button>
+
+        </div>
+
+
+
+      </div>
+        <a [routerLink]="[ '/admin/change-polls']" class="btn btn-primary">Перейти до опитувань</a>
+    </div>
+  </ng-container>
+
+</div>
